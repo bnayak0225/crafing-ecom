@@ -1,0 +1,21 @@
+[
+  {
+    "id": "user-001",
+    "name": "Alex Rivera",
+    "email": "alex@example.com",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+    "plan": "pro",
+    "planLabel": "Creator",
+    "company": "Rivera Creative Co.",
+    "role": "Design lead",
+    "phone": "+1 (555) 014-2200",
+    "memberSince": "2025-11-12T10:00:00Z",
+    "createdAt": "2025-11-12T10:00:00Z",
+    "billing": {
+      "address": "1200 Market St, Suite 400",
+      "city": "San Francisco",
+      "country": "United States",
+      "postalCode": "94103"
+    }
+  }
+]

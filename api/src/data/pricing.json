@@ -1,0 +1,26 @@
+[
+  {
+    "id": "free",
+    "name": "Starter",
+    "price": 0,
+    "interval": "month",
+    "features": ["50+ templates", "5 projects", "Basic export (PNG)", "Community support"],
+    "highlighted": false
+  },
+  {
+    "id": "pro",
+    "name": "Creator",
+    "price": 12,
+    "interval": "month",
+    "features": ["Unlimited templates", "Unlimited projects", "HD export (PNG, JPG, PDF)", "Brand kit", "Priority support"],
+    "highlighted": true
+  },
+  {
+    "id": "team",
+    "name": "Studio",
+    "price": 29,
+    "interval": "month",
+    "features": ["Everything in Creator", "5 team seats", "Shared brand assets", "Admin dashboard", "API access"],
+    "highlighted": false
+  }
+]

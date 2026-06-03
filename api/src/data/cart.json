@@ -1,0 +1,32 @@
+[
+  {
+    "id": "cart-001",
+    "userId": "user-001",
+    "templateId": "tpl-003",
+    "title": "Podcast Cover Art",
+    "thumbnail": "https://images.unsplash.com/photo-1478737273-74b45e4b7e95?w=400&h=300&fit=crop",
+    "type": "premium_template",
+    "price": 4.99,
+    "quantity": 1
+  },
+  {
+    "id": "cart-002",
+    "userId": "user-001",
+    "templateId": "tpl-006",
+    "title": "YouTube Thumbnail Pack",
+    "thumbnail": "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=400&h=300&fit=crop",
+    "type": "premium_template",
+    "price": 9.99,
+    "quantity": 1
+  },
+  {
+    "id": "cart-003",
+    "userId": "user-001",
+    "templateId": null,
+    "title": "Brand kit export add-on",
+    "thumbnail": "https://images.unsplash.com/photo-1557683316-973673baf926?w=400&h=300&fit=crop",
+    "type": "add_on",
+    "price": 2.99,
+    "quantity": 2
+  }
+]

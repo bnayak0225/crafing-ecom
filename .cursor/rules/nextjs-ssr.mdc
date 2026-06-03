@@ -1,0 +1,71 @@
+---
+description: Next.js SSR vs client boundaries for Cafing website
+globs: website/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Next.js rendering (Cafing website)
+
+## UI / theming (MUI)
+
+- Use **Material UI** components; theme lives in `src/theme/` (see `website/docs/THEMING.md`).
+- **Colors** — only in `src/theme/colors.ts`; components import `colors` from `@/theme/colors`. Never use hex/rgba literals in UI code.
+- **Light theme** — matches light image-editor (jade + copper on warm neutrals).
+- Shared layout: `PageContainer`, `PageHeader` from `@/components/layout/`.
+- `ThemeRegistry` wraps the app — do not add a second `ThemeProvider`.
+
+## Default: Server Components
+
+- Pages under `src/app/` are **Server Components** unless they need browser-only behavior.
+- Fetch data with `apiServer` from `@/lib/api-server` (uses `API_URL` on the server).
+- Use `export const metadata` or `generateMetadata` on SEO routes.
+
+## SEO / public routes (SSR required)
+
+| Route | Rendering |
+|-------|-----------|
+| `/` | Server + `metadata` |
+| `/studio` | Server + `generateMetadata` (template picker home) |
+| `/studio/pricing` | Server + `metadata` |
+
+## Private / interactive routes (client page OK)
+
+| Route | Rendering |
+|-------|-----------|
+| `/studio/projects` | `'use client'` page |
+| `/studio/account` | `'use client'` page |
+| `/studio/cart` | `'use client'` page |
+
+Use `apiClient` from `@/lib/api-client` only in client pages.
+
+## Client components (`src/components/client/`)
+
+Add `'use client'` only for:
+
+- Event handlers (`onClick`, `onSubmit`, `useState`, `useEffect`)
+- Examples: `SearchForm`, `CreateProjectButton`, `ActiveSidebar` (pathname for nav)
+
+Do **not** mark presentational UI as client if it can be a link:
+
+```tsx
+// ✅ Server — crawlers and SSR see real hrefs
+<a href={getEditorUrl({ templateId: t.id })} className="template-card">...</a>
+
+// ❌ Avoid — full page client fetch for public catalog
+'use client';
+useEffect(() => { api.getTemplates() }, []);
+```
+
+## Editor redirects
+
+- Server-safe: `getEditorUrl()` from `@/lib/editor`
+- Client-only navigation after mutations: `openEditor()` from `@/lib/editor-client`
+
+## API
+
+| Module | Use in |
+|--------|--------|
+| `api-server.ts` | Server Components, `generateMetadata` |
+| `api-client.ts` | `'use client'` pages only |
+
+Server fetch must use absolute `API_URL` (e.g. `http://localhost:3001`), not relative `/api`.

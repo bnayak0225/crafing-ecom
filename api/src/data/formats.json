@@ -1,0 +1,10 @@
+[
+  { "id": "instagram-post", "name": "Instagram Post", "width": 1080, "height": 1080, "icon": "instagram" },
+  { "id": "instagram-story", "name": "Instagram Story", "width": 1080, "height": 1920, "icon": "instagram" },
+  { "id": "facebook-cover", "name": "Facebook Cover", "width": 820, "height": 312, "icon": "facebook" },
+  { "id": "youtube-thumb", "name": "YouTube Thumbnail", "width": 1280, "height": 720, "icon": "youtube" },
+  { "id": "linkedin-banner", "name": "LinkedIn Banner", "width": 1584, "height": 396, "icon": "linkedin" },
+  { "id": "presentation", "name": "Presentation", "width": 1920, "height": 1080, "icon": "slides" },
+  { "id": "a4-flyer", "name": "A4 Flyer", "width": 2480, "height": 3508, "icon": "print" },
+  { "id": "custom", "name": "Custom Size", "width": null, "height": null, "icon": "custom" }
+]

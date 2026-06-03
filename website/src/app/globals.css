@@ -1,0 +1,43 @@
+/* Font variable fallback; primary application is dmSans.className on body */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-dm-sans), system-ui, -apple-system, sans-serif;
+}
+
+@keyframes landing-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -18px, 0) scale(1.04);
+  }
+}
+
+@keyframes landing-float-delayed {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(12px, 14px, 0) scale(1.06);
+  }
+}
+
+.landing-orb {
+  animation: landing-float 9s ease-in-out infinite;
+}
+
+.landing-orb--delayed {
+  animation: landing-float-delayed 11s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-orb,
+  .landing-orb--delayed {
+    animation: none;
+  }
+}

@@ -1,0 +1,134 @@
+[
+  {
+    "id": "tpl-001",
+    "title": "Summer Sale Banner",
+    "category": "marketing",
+    "tags": ["sale", "banner", "retail"],
+    "width": 1200,
+    "height": 628,
+    "thumbnail": "https://images.unsplash.com/photo-1607083206869-4c6672c72c7d?w=400&h=300&fit=crop",
+    "premium": false,
+    "uses": 1240
+  },
+  {
+    "id": "tpl-002",
+    "title": "Minimal Product Card",
+    "category": "ecommerce",
+    "tags": ["product", "shop", "minimal"],
+    "width": 1080,
+    "height": 1080,
+    "thumbnail": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop",
+    "premium": false,
+    "uses": 3890
+  },
+  {
+    "id": "tpl-003",
+    "title": "Podcast Cover Art",
+    "category": "social",
+    "tags": ["podcast", "audio", "cover"],
+    "width": 3000,
+    "height": 3000,
+    "thumbnail": "https://images.unsplash.com/photo-1478737273-74b45e4b7e95?w=400&h=300&fit=crop",
+    "premium": true,
+    "uses": 892
+  },
+  {
+    "id": "tpl-004",
+    "title": "Wedding Invitation",
+    "category": "events",
+    "tags": ["wedding", "invite", "elegant"],
+    "width": 1050,
+    "height": 1500,
+    "thumbnail": "https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop",
+    "premium": true,
+    "uses": 2103
+  },
+  {
+    "id": "tpl-005",
+    "title": "LinkedIn Article Header",
+    "category": "social",
+    "tags": ["linkedin", "professional", "header"],
+    "width": 1584,
+    "height": 396,
+    "thumbnail": "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=300&fit=crop",
+    "premium": false,
+    "uses": 5671
+  },
+  {
+    "id": "tpl-006",
+    "title": "Food Menu Board",
+    "category": "print",
+    "tags": ["restaurant", "menu", "food"],
+    "width": 2480,
+    "height": 3508,
+    "thumbnail": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
+    "premium": false,
+    "uses": 445
+  },
+  {
+    "id": "tpl-007",
+    "title": "App Launch Teaser",
+    "category": "marketing",
+    "tags": ["app", "launch", "tech"],
+    "width": 1080,
+    "height": 1920,
+    "thumbnail": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop",
+    "premium": true,
+    "uses": 1567
+  },
+  {
+    "id": "tpl-008",
+    "title": "Real Estate Flyer",
+    "category": "print",
+    "tags": ["real-estate", "property", "flyer"],
+    "width": 2550,
+    "height": 3300,
+    "thumbnail": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+    "premium": false,
+    "uses": 734
+  },
+  {
+    "id": "tpl-009",
+    "title": "YouTube Thumbnail Pack",
+    "category": "video",
+    "tags": ["youtube", "thumbnail", "creator"],
+    "width": 1280,
+    "height": 720,
+    "thumbnail": "https://images.unsplash.com/photo-1611162616305-c69b3fa7bba0?w=400&h=300&fit=crop",
+    "premium": false,
+    "uses": 9120
+  },
+  {
+    "id": "tpl-010",
+    "title": "Brand Style Guide Cover",
+    "category": "documents",
+    "tags": ["brand", "guide", "corporate"],
+    "width": 1920,
+    "height": 1080,
+    "thumbnail": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
+    "premium": true,
+    "uses": 321
+  },
+  {
+    "id": "tpl-011",
+    "title": "Instagram Story Promo",
+    "category": "social",
+    "tags": ["instagram", "story", "promo"],
+    "width": 1080,
+    "height": 1920,
+    "thumbnail": "https://images.unsplash.com/photo-1611162617474-24b9a338adbe?w=400&h=300&fit=crop",
+    "premium": false,
+    "uses": 6780
+  },
+  {
+    "id": "tpl-012",
+    "title": "Conference Badge",
+    "category": "events",
+    "tags": ["conference", "badge", "event"],
+    "width": 1012,
+    "height": 638,
+    "thumbnail": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
+    "premium": false,
+    "uses": 198
+  }
+]

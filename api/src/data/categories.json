@@ -1,0 +1,58 @@
+[
+  {
+    "id": "marketing",
+    "name": "Marketing",
+    "description": "Ads, flyers, and campaign visuals",
+    "icon": "megaphone",
+    "color": "#FF6B4A",
+    "templateCount": 48
+  },
+  {
+    "id": "social",
+    "name": "Social Media",
+    "description": "Posts, stories, and profile assets",
+    "icon": "share",
+    "color": "#4ECDC4",
+    "templateCount": 120
+  },
+  {
+    "id": "ecommerce",
+    "name": "E-Commerce",
+    "description": "Product cards, banners, and shop graphics",
+    "icon": "cart",
+    "color": "#A78BFA",
+    "templateCount": 36
+  },
+  {
+    "id": "print",
+    "name": "Print",
+    "description": "Menus, flyers, posters, and brochures",
+    "icon": "printer",
+    "color": "#FBBF24",
+    "templateCount": 64
+  },
+  {
+    "id": "video",
+    "name": "Video",
+    "description": "Thumbnails, intros, and video overlays",
+    "icon": "play",
+    "color": "#F472B6",
+    "templateCount": 28
+  },
+  {
+    "id": "events",
+    "name": "Events",
+    "description": "Invitations, tickets, and event branding",
+    "icon": "calendar",
+    "color": "#60A5FA",
+    "templateCount": 42
+  },
+  {
+    "id": "documents",
+    "name": "Documents",
+    "description": "Reports, presentations, and guides",
+    "icon": "file",
+    "color": "#34D399",
+    "templateCount": 22
+  }
+]

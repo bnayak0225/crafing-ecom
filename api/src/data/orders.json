@@ -1,0 +1,65 @@
+[
+  {
+    "id": "ord-2401",
+    "userId": "user-001",
+    "status": "completed",
+    "total": 12.0,
+    "currency": "USD",
+    "paymentMethod": "Visa •••• 4242",
+    "createdAt": "2026-05-18T14:22:00Z",
+    "items": [
+      {
+        "title": "Creator plan (monthly)",
+        "quantity": 1,
+        "price": 12.0
+      }
+    ]
+  },
+  {
+    "id": "ord-2402",
+    "userId": "user-001",
+    "status": "completed",
+    "total": 14.98,
+    "currency": "USD",
+    "paymentMethod": "Visa •••• 4242",
+    "createdAt": "2026-04-02T09:15:00Z",
+    "items": [
+      {
+        "title": "Instagram Story Promo",
+        "quantity": 1,
+        "price": 4.99
+      },
+      {
+        "title": "LinkedIn Article Header",
+        "quantity": 1,
+        "price": 9.99
+      }
+    ]
+  },
+  {
+    "id": "ord-2403",
+    "userId": "user-001",
+    "status": "processing",
+    "total": 17.97,
+    "currency": "USD",
+    "paymentMethod": "Visa •••• 4242",
+    "createdAt": "2026-05-28T11:40:00Z",
+    "items": [
+      {
+        "title": "Podcast Cover Art",
+        "quantity": 1,
+        "price": 4.99
+      },
+      {
+        "title": "YouTube Thumbnail Pack",
+        "quantity": 1,
+        "price": 9.99
+      },
+      {
+        "title": "Brand kit export add-on",
+        "quantity": 1,
+        "price": 2.99
+      }
+    ]
+  }
+]
