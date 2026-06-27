@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import { Suspense } from 'react';
 import { ActiveSidebar } from '@/components/client/ActiveSidebar';
 import { Topbar } from '@/components/Topbar';
 import { apiServer } from '@/lib/api-server';
@@ -17,8 +18,10 @@ export default async function StudioLayout({
   }
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-      <ActiveSidebar />
+    <Box sx={{ display: 'flex', minHeight: '100%' }}>
+      <Suspense fallback={null}>
+        <ActiveSidebar />
+      </Suspense>
       <Box
         sx={{
           flexGrow: 1,

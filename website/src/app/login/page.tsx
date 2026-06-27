@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { BrandLogo } from '@/components/BrandLogo';
 import { apiClient } from '@/lib/api-client';
 import { colors } from '@/theme/colors';
 import { tokens } from '@/theme/tokens';
@@ -46,7 +45,7 @@ export default function LoginPage() {
   return (
     <Box
       sx={{
-        minHeight: '100vh',
+        flex: 1,
         display: 'flex',
         alignItems: 'center',
         py: 6,
@@ -55,7 +54,6 @@ export default function LoginPage() {
     >
       <Container maxWidth="sm">
         <Stack spacing={3} sx={{ alignItems: 'center', mb: 3 }}>
-          <BrandLogo href="/" size="md" />
           <Typography variant="h4" sx={{ fontWeight: 700, textAlign: 'center' }}>
             Sign in to Cafing Studio
           </Typography>

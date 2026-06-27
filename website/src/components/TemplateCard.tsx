@@ -8,6 +8,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { getEditorUrl } from '@/lib/editor';
+import { TemplateSizeBadge } from '@/components/studio/TemplateSizeBadge';
 import { colors } from '@/theme/colors';
 import type { Template } from '@/types';
 
@@ -88,15 +89,18 @@ export function TemplateCard({ template }: TemplateCardProps) {
               }}
             />
           )}
+          <TemplateSizeBadge width={template.width} height={template.height} />
         </Box>
         <CardContent sx={{ flexGrow: 1, py: 2, px: 2 }}>
           <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.75 }}>
             {template.title}
           </Typography>
-          <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-            <Typography variant="caption" color="text.secondary">
-              {template.width} × {template.height}
-            </Typography>
+          <Stack direction="row" spacing={1} sx={{ alignItems: 'center', flexWrap: 'wrap', gap: 0.5 }}>
+            <TemplateSizeBadge
+              width={template.width}
+              height={template.height}
+              position="inline"
+            />
             <Typography variant="caption" color="text.disabled">
               ·
             </Typography>

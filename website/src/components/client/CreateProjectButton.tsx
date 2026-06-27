@@ -4,23 +4,23 @@ import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import { apiClient } from '@/lib/api-client';
+import { crafingGraphql } from '@/lib/crafing-graphql';
 import { openEditor } from '@/lib/editor-client';
 import { colors } from '@/theme/colors';
 
-export function CreateProjectButton() {
+interface CreateProjectButtonProps {
+  onCreated?: () => void;
+}
+
+export function CreateProjectButton({ onCreated }: CreateProjectButtonProps) {
   const [loading, setLoading] = useState(false);
 
   const handleNew = async () => {
     setLoading(true);
     try {
-      const project = await apiClient.createProject({ title: 'Untitled Design' });
-      openEditor({
-        projectId: project.id,
-        width: project.width,
-        height: project.height,
-        title: project.title,
-      });
+      const work = await crafingGraphql.createBlankWork({ name: 'Untitled' });
+      onCreated?.();
+      openEditor({ workId: work.id });
     } finally {
       setLoading(false);
     }
@@ -51,7 +51,7 @@ export function CreateProjectButton() {
     >
       <AddIcon sx={{ fontSize: 36, opacity: 0.8 }} />
       <Typography variant="body2" sx={{ fontWeight: 500 }}>
-        {loading ? 'Creating…' : 'New design'}
+        {loading ? 'Creating…' : 'Create new design'}
       </Typography>
     </Button>
   );

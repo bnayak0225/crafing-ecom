@@ -43,12 +43,13 @@ app.get('/api/health', (_req, res) => {
 app.get('/api/templates', async (req, res) => {
   await delay();
   let result = [...templates];
-  const { category, tag, search, premium, sort } = req.query;
+  const { category, tag, search, premium, featured, sort } = req.query;
 
   if (category) result = result.filter((t) => t.category === category);
   if (tag) result = result.filter((t) => t.tags.includes(tag));
   if (premium === 'true') result = result.filter((t) => t.premium);
   if (premium === 'false') result = result.filter((t) => !t.premium);
+  if (featured === 'true') result = result.filter((t) => t.featured);
   if (search) {
     const q = String(search).toLowerCase();
     result = result.filter(

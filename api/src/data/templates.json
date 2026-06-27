@@ -8,6 +8,7 @@
     "height": 628,
     "thumbnail": "https://images.unsplash.com/photo-1607083206869-4c6672c72c7d?w=400&h=300&fit=crop",
     "premium": false,
+    "featured": true,
     "uses": 1240
   },
   {
@@ -19,6 +20,7 @@
     "height": 1080,
     "thumbnail": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop",
     "premium": false,
+    "featured": true,
     "uses": 3890
   },
   {
@@ -30,6 +32,7 @@
     "height": 3000,
     "thumbnail": "https://images.unsplash.com/photo-1478737273-74b45e4b7e95?w=400&h=300&fit=crop",
     "premium": true,
+    "featured": false,
     "uses": 892
   },
   {
@@ -41,6 +44,7 @@
     "height": 1500,
     "thumbnail": "https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop",
     "premium": true,
+    "featured": true,
     "uses": 2103
   },
   {
@@ -52,6 +56,7 @@
     "height": 396,
     "thumbnail": "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=300&fit=crop",
     "premium": false,
+    "featured": true,
     "uses": 5671
   },
   {
@@ -63,6 +68,7 @@
     "height": 3508,
     "thumbnail": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
     "premium": false,
+    "featured": true,
     "uses": 445
   },
   {
@@ -74,6 +80,7 @@
     "height": 1920,
     "thumbnail": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop",
     "premium": true,
+    "featured": true,
     "uses": 1567
   },
   {
@@ -85,6 +92,7 @@
     "height": 3300,
     "thumbnail": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
     "premium": false,
+    "featured": true,
     "uses": 734
   },
   {
@@ -96,6 +104,7 @@
     "height": 720,
     "thumbnail": "https://images.unsplash.com/photo-1611162616305-c69b3fa7bba0?w=400&h=300&fit=crop",
     "premium": false,
+    "featured": true,
     "uses": 9120
   },
   {
@@ -107,6 +116,7 @@
     "height": 1080,
     "thumbnail": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
     "premium": true,
+    "featured": false,
     "uses": 321
   },
   {
@@ -118,6 +128,7 @@
     "height": 1920,
     "thumbnail": "https://images.unsplash.com/photo-1611162617474-24b9a338adbe?w=400&h=300&fit=crop",
     "premium": false,
+    "featured": true,
     "uses": 6780
   },
   {
@@ -129,6 +140,7 @@
     "height": 638,
     "thumbnail": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
     "premium": false,
+    "featured": false,
     "uses": 198
   }
 ]

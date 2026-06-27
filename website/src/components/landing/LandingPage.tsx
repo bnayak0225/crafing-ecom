@@ -20,7 +20,7 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
-import { BrandLogo } from '@/components/BrandLogo';
+import { TemplateGrid } from '@/components/TemplateGrid';
 import { getEditorUrl } from '@/lib/editor';
 import { colors } from '@/theme/colors';
 import { tokens } from '@/theme/tokens';
@@ -61,90 +61,8 @@ const heroStats: { value: string; label: string; icon: SvgIconComponent }[] = [
 ];
 
 export function LandingPage({ templates }: LandingPageProps) {
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <Box sx={{ minHeight: '100vh', overflow: 'hidden' }}>
-      {/* Nav */}
-      <Box
-        component="header"
-        sx={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 20,
-          borderBottom: 1,
-          borderColor: colors.border.subtle,
-          bgcolor: colors.alpha.white92,
-          backdropFilter: 'blur(14px)',
-          boxShadow: colors.shadow.header,
-        }}
-      >
-        <Container maxWidth="lg">
-          <Stack
-            direction="row"
-            sx={{ py: 2, alignItems: 'center', justifyContent: 'space-between' }}
-          >
-            <BrandLogo href="/" size="sm" />
-            <Stack
-              direction="row"
-              spacing={3}
-              sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}
-            >
-              <Button
-                onClick={() => scrollTo('features')}
-                color="inherit"
-                sx={{
-                  color: colors.text.secondary,
-                  fontWeight: 500,
-                  '&:hover': { color: colors.primary.main, bgcolor: 'transparent' },
-                }}
-              >
-                Features
-              </Button>
-              <Button
-                onClick={() => scrollTo('templates')}
-                color="inherit"
-                sx={{
-                  color: colors.text.secondary,
-                  fontWeight: 500,
-                  '&:hover': { color: colors.primary.main, bgcolor: 'transparent' },
-                }}
-              >
-                Templates
-              </Button>
-              <Typography
-                component={Link}
-                href="/studio/pricing"
-                variant="body2"
-                sx={{
-                  color: colors.text.secondary,
-                  fontWeight: 500,
-                  transition: 'color 0.2s',
-                  '&:hover': { color: colors.primary.main },
-                }}
-              >
-                Pricing
-              </Typography>
-            </Stack>
-            <Stack direction="row" spacing={1.5}>
-              <Button
-                component={Link}
-                href="/login"
-                variant="outlined"
-                sx={{ display: { xs: 'none', sm: 'inline-flex' } }}
-              >
-                Sign in
-              </Button>
-              <Button component={Link} href="/studio" variant="contained" color="primary">
-                Open Studio
-              </Button>
-            </Stack>
-          </Stack>
-        </Container>
-      </Box>
-
       {/* Hero */}
       <Box
         component="section"
@@ -463,43 +381,7 @@ export function LandingPage({ templates }: LandingPageProps) {
               View all
             </Button>
           </Stack>
-          <Grid container spacing={2.5}>
-            {templates.map((t) => (
-              <Grid key={t.id} size={{ xs: 12, sm: 6, md: 4 }}>
-                <Card
-                  sx={{
-                    overflow: 'hidden',
-                    bgcolor: colors.background.paper,
-                    '&:hover': { transform: 'translateY(-4px)' },
-                  }}
-                >
-                  <CardActionArea
-                    href={getEditorUrl({
-                      templateId: t.id,
-                      width: t.width,
-                      height: t.height,
-                      title: t.title,
-                    })}
-                  >
-                    <CardMedia
-                      component="img"
-                      image={t.thumbnail}
-                      alt={t.title}
-                      sx={{ aspectRatio: '16/10', objectFit: 'cover' }}
-                    />
-                    <Box sx={{ p: 2 }}>
-                      <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                        {t.title}
-                      </Typography>
-                      <Typography variant="caption" sx={{ color: colors.text.secondary }}>
-                        {t.width} × {t.height}
-                      </Typography>
-                    </Box>
-                  </CardActionArea>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          <TemplateGrid templates={templates} />
         </Container>
       </Box>
 

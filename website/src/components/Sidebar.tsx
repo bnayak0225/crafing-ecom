@@ -1,73 +1,57 @@
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+'use client';
+
+import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
-import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Typography from '@mui/material/Typography';
 import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { BrandLogo } from '@/components/BrandLogo';
+import {
+  isStudioSectionActive,
+  studioSectionHref,
+  type StudioPanel,
+} from '@/config/studio-nav';
 import { getEditorUrl } from '@/lib/editor';
-import { tokens } from '@/theme';
+import { colors } from '@/theme/colors';
+import { tokens } from '@/theme/tokens';
 
-const mainNav = [
-  { href: '/studio', label: 'Templates', icon: DashboardOutlinedIcon, exact: true },
-  { href: '/studio/projects', label: 'My Work', icon: FolderOutlinedIcon, exact: false },
+const mainNav: {
+  id: StudioPanel;
+  label: string;
+  href: string;
+  icon: typeof AutoAwesomeOutlinedIcon;
+}[] = [
+  { id: 'design', label: 'Design', href: studioSectionHref('design'), icon: AutoAwesomeOutlinedIcon },
+  { id: 'print', label: 'Print', href: studioSectionHref('print'), icon: PrintOutlinedIcon },
+  { id: 'my-work', label: 'My Work', href: '/studio/projects', icon: FolderOutlinedIcon },
+  { id: 'account', label: 'Account', href: '/studio/account', icon: PersonOutlinedIcon },
 ];
 
-const secondaryNav = [
-  { href: '/studio/pricing', label: 'Plans', icon: LocalOfferOutlinedIcon, exact: false },
-  { href: '/studio/account', label: 'Account', icon: PersonOutlinedIcon, exact: false },
-  { href: '/studio/cart', label: 'Cart', icon: ShoppingCartOutlinedIcon, exact: false },
-  { href: '/login', label: 'Sign in', icon: LoginOutlinedIcon, exact: true },
-];
-
-interface SidebarProps {
-  pathname: string;
-}
-
-function NavSection({
-  items,
-  pathname,
-}: {
-  items: typeof mainNav;
-  pathname: string;
-}) {
-  const isActive = (href: string, exact: boolean) => {
-    if (!pathname) return false;
-    return exact ? pathname === href : pathname.startsWith(href);
-  };
+export function Sidebar() {
+  const pathname = usePathname() ?? '';
+  const productType = useSearchParams().get('type') ?? '';
+  const sectionParam = useSearchParams().get('section') ?? '';
 
   return (
-    <List disablePadding>
-      {items.map(({ href, label, icon: Icon, exact }) => (
-        <ListItemButton
-          key={href}
-          component={Link}
-          href={href}
-          selected={isActive(href, exact)}
-        >
-          <ListItemIcon>
-            <Icon sx={{ fontSize: 20 }} />
-          </ListItemIcon>
-          <ListItemText primary={label} />
-        </ListItemButton>
-      ))}
-    </List>
-  );
-}
-
-export function Sidebar({ pathname }: SidebarProps) {
-  return (
-    <Drawer variant="permanent" sx={{ display: { xs: 'none', md: 'block' } }}>
+    <Drawer
+      variant="permanent"
+      sx={{
+        display: { xs: 'none', md: 'block' },
+        '& .MuiDrawer-paper': {
+          width: tokens.sidebarWidth,
+          borderRight: 1,
+          borderColor: colors.border.subtle,
+        },
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
@@ -77,40 +61,41 @@ export function Sidebar({ pathname }: SidebarProps) {
           px: 2,
         }}
       >
-        <Box sx={{ px: 0.5, mb: 3 }}>
+        <Box sx={{ px: 0.5, mb: 3, flexShrink: 0 }}>
           <BrandLogo href="/studio" />
         </Box>
 
-        <Typography
-          variant="overline"
-          sx={{ px: 1.5, mb: 1, color: 'text.disabled', display: 'block' }}
+        <List dense disablePadding sx={{ flex: 1 }}>
+          {mainNav.map(({ id, label, href, icon: Icon }) => (
+            <ListItemButton
+              key={id}
+              component={Link}
+              href={href}
+              selected={isStudioSectionActive(pathname, sectionParam, productType, id)}
+              sx={{ py: 1, mb: 0.25, borderRadius: 1 }}
+            >
+              <ListItemIcon sx={{ minWidth: 38 }}>
+                <Icon sx={{ fontSize: 20 }} />
+              </ListItemIcon>
+              <ListItemText
+                primary={label}
+                slotProps={{ primary: { variant: 'body2', fontWeight: 600 } }}
+              />
+            </ListItemButton>
+          ))}
+        </List>
+
+        <Button
+          component="a"
+          href={getEditorUrl()}
+          variant="contained"
+          color="primary"
+          fullWidth
+          size="large"
+          sx={{ mt: 2, flexShrink: 0 }}
         >
-          Workspace
-        </Typography>
-        <NavSection items={mainNav} pathname={pathname} />
-
-        <Divider sx={{ my: 2 }} />
-
-        <Typography
-          variant="overline"
-          sx={{ px: 1.5, mb: 1, color: 'text.disabled', display: 'block' }}
-        >
-          Account
-        </Typography>
-        <NavSection items={secondaryNav} pathname={pathname} />
-
-        <Box sx={{ mt: 'auto', pt: 3 }}>
-          <Button
-            component="a"
-            href={getEditorUrl()}
-            variant="contained"
-            color="primary"
-            fullWidth
-            size="large"
-          >
-            New design
-          </Button>
-        </Box>
+          New design
+        </Button>
       </Box>
     </Drawer>
   );

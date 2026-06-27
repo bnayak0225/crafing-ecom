@@ -7,6 +7,7 @@ export interface Template {
   height: number;
   thumbnail: string;
   premium: boolean;
+  featured?: boolean;
   uses: number;
 }
 

@@ -53,18 +53,8 @@ export function BrandLogo({ href = '/studio', size = 'md' }: BrandLogoProps) {
   }
 
   return (
-    <Box
-      component={Link}
-      href={href}
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 1.25,
-        textDecoration: 'none',
-        color: 'inherit',
-      }}
-    >
-      {content}
-    </Box>
+    <Link href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>{content}</Box>
+    </Link>
   );
 }

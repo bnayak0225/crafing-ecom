@@ -8,13 +8,17 @@ interface CategoryFilterProps {
   categories: Category[];
   activeCategory: string;
   searchQuery: string;
+  hidden?: boolean;
 }
 
 export function CategoryFilter({
   categories,
   activeCategory,
   searchQuery,
+  hidden = false,
 }: CategoryFilterProps) {
+  if (hidden) return null;
+
   const buildHref = (categoryId: string) => {
     const params = new URLSearchParams();
     if (categoryId) params.set('category', categoryId);

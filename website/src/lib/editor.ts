@@ -1,5 +1,5 @@
 export interface EditorParams {
-  projectId?: string;
+  workId?: string;
   templateId?: string;
   width?: number;
   height?: number;
@@ -11,8 +11,8 @@ const editorBase = () =>
 
 /** Build image-editor URL (safe for Server and Client Components). */
 export function getEditorUrl(params: EditorParams = {}): string {
-  const url = new URL(editorBase());
-  if (params.projectId) url.searchParams.set('project', params.projectId);
+  const url = new URL('/design', editorBase());
+  if (params.workId) url.searchParams.set('workId', params.workId);
   if (params.templateId) url.searchParams.set('template', params.templateId);
   if (params.width) url.searchParams.set('width', String(params.width));
   if (params.height) url.searchParams.set('height', String(params.height));

@@ -11,9 +11,20 @@ import type {
 
 async function fetchJson<T>(path: string): Promise<T> {
   const base = getServerApiBase();
-  const res = await fetch(`${base}${path}`, {
-    next: { revalidate: 60 },
-  });
+  const url = `${base}${path}`;
+
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      next: { revalidate: 60 },
+    });
+  } catch (err) {
+    const cause = err instanceof Error ? err.cause ?? err.message : String(err);
+    throw new Error(
+      `API unreachable at ${url}. Start the mock API: cd api && npm run dev — ${cause}`,
+    );
+  }
+
   if (!res.ok) throw new Error(`API error: ${res.status} ${path}`);
   return res.json();
 }
