@@ -6,15 +6,17 @@ import { CategoryFilter } from '@/components/CategoryFilter';
 import { PageContainer } from '@/components/layout/PageContainer';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { FeaturedThemesSection } from '@/components/studio/FeaturedThemesSection';
-import { StudioDesignPicker, StudioPrintPicker } from '@/components/studio/StudioProductGrid';
+import { PrintCategoryPicker } from '@/components/studio/PrintCategoryPicker';
+import { StudioPrintSection } from '@/components/studio/StudioPrintSectionClient';
+import { StudioDesignPicker } from '@/components/studio/StudioProductGrid';
 import { TemplateGrid } from '@/components/TemplateGrid';
+import { getPrintCategory, isPrintCategoryId } from '@/config/print-categories';
 import { getStudioProduct } from '@/config/studio-nav';
 import { formatStudioProductSize } from '@/config/studio-product-sizes';
 import { apiServer } from '@/lib/api-server';
 import { filterTemplatesForProduct } from '@/lib/studio-product-filter';
-
 interface StudioHomeProps {
-  searchParams: Promise<{ category?: string; q?: string; section?: string; type?: string }>;
+  searchParams: Promise<{ category?: string; q?: string; section?: string; type?: string; group?: string }>;
 }
 
 export async function generateMetadata({
@@ -30,7 +32,15 @@ export async function generateMetadata({
     };
   }
   if (section === 'print') {
-    return { title: 'Print — Cafing Studio', description: 'Photobooks, mugs, apparel, and more.' };
+    const { group } = await searchParams;
+    if (group && isPrintCategoryId(group)) {
+      const cat = getPrintCategory(group);
+      return {
+        title: `${cat?.title ?? 'Print'} — Cafing Studio`,
+        description: cat?.description,
+      };
+    }
+    return { title: 'Print — Cafing Studio', description: 'Mugs, tees, photo books, prints, and frames.' };
   }
   if (section === 'design' || !section) {
     return { title: 'Design — Cafing Studio', description: 'Social, banners, presentations, and more.' };
@@ -54,40 +64,36 @@ export async function generateMetadata({
 }
 
 export default async function StudioHomePage({ searchParams }: StudioHomeProps) {
-  const { category = '', q = '', type = '', section = '' } = await searchParams;
+  const { category = '', q = '', type = '', section = '', group = '' } = await searchParams;
   const product = type ? getStudioProduct(type) : undefined;
   const activeSection = section === 'print' ? 'print' : 'design';
   const showProductPicker = !product && !q && !category;
 
+  if (showProductPicker && section === 'print' && isPrintCategoryId(group)) {
+    return (
+      <PageContainer>
+        <PrintCategoryPicker groupId={group} />
+      </PageContainer>
+    );
+  }
+
   if (showProductPicker) {
-    let featuredTemplates: Awaited<ReturnType<typeof apiServer.getTemplates>>['data'] = [];
-
-    try {
-      const featuredRes = await apiServer.getTemplates({
-        featured: 'true',
-        limit: '12',
-        sort: 'popular',
-      });
-      featuredTemplates = featuredRes.data.filter((template) =>
-        activeSection === 'print' ? template.category === 'print' : template.category !== 'print',
-      );
-    } catch {
-      featuredTemplates = [];
-    }
-
     return (
       <PageContainer>
         <PageHeader
           eyebrow={activeSection === 'print' ? 'Print' : 'Design'}
-          title={activeSection === 'print' ? 'What do you want to print?' : 'Choose a format'}
+          title={activeSection === 'print' ? 'Print your designs' : 'Choose a format'}
           description={
             activeSection === 'print'
-              ? 'Pick a product type, then choose a template sized for print.'
+              ? 'Scroll to explore mugs, tees, photo books, prints, and frames — then open a category to pick your style.'
               : 'Instagram, banners, YouTube, presentations, and more — pick a format.'
           }
         />
-        <FeaturedThemesSection templates={featuredTemplates} />
-        {activeSection === 'print' ? <StudioPrintPicker /> : <StudioDesignPicker />}
+        {activeSection === 'print' ? (
+          <StudioPrintSection />
+        ) : (          <StudioDesignPicker />
+        )}
+        <FeaturedThemesSection section={activeSection} />
       </PageContainer>
     );
   }

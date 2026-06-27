@@ -30,10 +30,7 @@ export function TemplateCard({ template }: TemplateCardProps) {
         height: '100%',
         overflow: 'hidden',
         bgcolor: colors.background.paper,
-        '&:hover': {
-          transform: 'translateY(-4px)',
-          '& .template-open-icon': { opacity: 1 },
-        },
+        '&:hover .template-open-icon': { opacity: 1 },
       }}
     >
       <CardActionArea
@@ -53,8 +50,6 @@ export function TemplateCard({ template }: TemplateCardProps) {
             sx={{
               aspectRatio: '4/3',
               objectFit: 'cover',
-              transition: 'transform 0.35s ease',
-              '.MuiCard-root:hover &': { transform: 'scale(1.03)' },
             }}
           />
           <Box

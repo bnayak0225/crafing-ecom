@@ -61,15 +61,16 @@ export const STUDIO_PRODUCT_SIZES: Record<string, StudioProductSize> = {
   'whatsapp-status': { width: 1080, height: 1920 },
   'custom-size': { sizeLabel: 'Custom' },
   // Print
-  photobook: { sizeLabel: '8×10 in' },
+  photobook: { sizeLabel: '8×8 in' },
+  'standard-photo-print': { sizeLabel: '4×6 · 5×7 in' },
+  'polaroid-print': { sizeLabel: '4×4 in · white border' },
   'coffee-mug': { sizeLabel: '11 oz · 3.5×3.5 in wrap' },
-  tshirt: { sizeLabel: '12×16 in print area' },
-  'photo-magnet': { sizeLabel: '3×3 in' },
-  'a4-flyer': { width: 2480, height: 3508, sizeLabel: 'A4' },
-  poster: { sizeLabel: '18×24 in' },
-  'business-card': { sizeLabel: '3.5×2 in' },
-  'greeting-card': { sizeLabel: '5×7 in' },
+  'travel-mug': { sizeLabel: '15 oz · 3×8 in wrap' },
+  't-shirt-men': { sizeLabel: '12×16 in front · men’s' },
+  't-shirt-women': { sizeLabel: '12×16 in front · women’s' },
+  'picture-frame': { sizeLabel: '8×10 in with mat' },
   'canvas-print': { sizeLabel: '16×20 in' },
+  'poster-frame': { sizeLabel: '18×24 in' },
 };
 
 function formatPixelSize(width: number, height: number): string {

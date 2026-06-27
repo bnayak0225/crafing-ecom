@@ -12,12 +12,14 @@ import Typography from '@mui/material/Typography';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Link from 'next/link';
 import { HorizontalScrollRow } from '@/components/layout/HorizontalScrollRow';
+import { BlankDesignCard } from '@/components/studio/BlankDesignCard';
 import { ProductSizeLabel } from '@/components/studio/ProductSizeLabel';
 import {
   STUDIO_DESIGN_FILTER_TAGS,
   STUDIO_DESIGN_PRODUCTS,
   STUDIO_PRINT_FILTER_TAGS,
   STUDIO_PRINT_PRODUCTS,
+  listStudioPrintProducts,
   filterStudioProducts,
   studioProductHref,
   type StudioFilterTag,
@@ -40,7 +42,7 @@ function StudioProductCard({ product }: { product: StudioProduct }) {
         width: PRODUCT_CARD_WIDTH,
         minHeight: 196,
         bgcolor: colors.background.paper,
-        '&:hover': { transform: 'translateY(-2px)' },
+        '&:hover': { borderColor: colors.primary.main },
       }}
     >
       <Link
@@ -102,8 +104,14 @@ function StudioProductCard({ product }: { product: StudioProduct }) {
   );
 }
 
-function ProductScrollRow({ products }: { products: StudioProduct[] }) {
-  if (products.length === 0) {
+function ProductScrollRow({
+  products,
+  lead,
+}: {
+  products: StudioProduct[];
+  lead?: React.ReactNode;
+}) {
+  if (products.length === 0 && !lead) {
     return (
       <Box
         sx={{
@@ -123,6 +131,7 @@ function ProductScrollRow({ products }: { products: StudioProduct[] }) {
 
   return (
     <HorizontalScrollRow gap={2}>
+      {lead}
       {products.map((product) => (
         <StudioProductCard key={product.id} product={product} />
       ))}
@@ -135,6 +144,8 @@ type FilterableProductPickerProps = {
   tags: StudioFilterTag[];
   groupField: 'groupId' | 'printGroupId';
   searchPlaceholder: string;
+  lead?: React.ReactNode;
+  excludeProductIds?: string[];
 };
 
 function FilterableProductPicker({
@@ -142,14 +153,17 @@ function FilterableProductPicker({
   tags,
   groupField,
   searchPlaceholder,
+  lead,
+  excludeProductIds = [],
 }: FilterableProductPickerProps) {
   const [activeTag, setActiveTag] = useState<StudioFilterTagId>('all');
   const [query, setQuery] = useState('');
 
-  const filteredProducts = useMemo(
-    () => filterStudioProducts(products, { tagId: activeTag, query, groupField }),
-    [products, activeTag, query, groupField],
-  );
+  const filteredProducts = useMemo(() => {
+    const excluded = new Set(excludeProductIds);
+    const pool = products.filter((product) => !excluded.has(product.id));
+    return filterStudioProducts(pool, { tagId: activeTag, query, groupField });
+  }, [products, excludeProductIds, activeTag, query, groupField]);
 
   return (
     <Stack spacing={2.5}>
@@ -188,7 +202,7 @@ function FilterableProductPicker({
         })}
       </HorizontalScrollRow>
 
-      <ProductScrollRow products={filteredProducts} />
+      <ProductScrollRow products={filteredProducts} lead={lead} />
     </Stack>
   );
 }
@@ -200,6 +214,8 @@ export function StudioDesignPicker() {
       tags={STUDIO_DESIGN_FILTER_TAGS}
       groupField="groupId"
       searchPlaceholder="Search design formats…"
+      lead={<BlankDesignCard />}
+      excludeProductIds={['custom-size']}
     />
   );
 }
@@ -207,7 +223,7 @@ export function StudioDesignPicker() {
 export function StudioPrintPicker() {
   return (
     <FilterableProductPicker
-      products={STUDIO_PRINT_PRODUCTS}
+      products={listStudioPrintProducts()}
       tags={STUDIO_PRINT_FILTER_TAGS}
       groupField="printGroupId"
       searchPlaceholder="Search print products…"

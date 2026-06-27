@@ -123,8 +123,6 @@ export default function ProjectsPage() {
                   height: '100%',
                   overflow: 'hidden',
                   position: 'relative',
-                  '&:hover': { transform: 'translateY(-4px)' },
-                  '&:hover .design-thumb': { transform: 'scale(1.05)' },
                 }}
               >
                 <IconButton
@@ -157,7 +155,7 @@ export default function ProjectsPage() {
                     component="img"
                     image={workListThumbnail(work)}
                     alt={work.name}
-                    sx={{ aspectRatio: 1, objectFit: 'cover', transition: 'transform 0.35s ease' }}
+                    sx={{ aspectRatio: 1, objectFit: 'cover' }}
                   />
                   <CardContent>
                     <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>

@@ -175,9 +175,7 @@ export function LandingPage({ templates }: LandingPageProps) {
                   sx={{
                     px: 3,
                     background: colors.gradient.heroAccent,
-                    transition: 'transform 0.2s, box-shadow 0.2s',
                     '&:hover': {
-                      transform: 'translateY(-2px)',
                       boxShadow: colors.shadow.cardHover,
                       background: colors.gradient.heroAccent,
                     },
@@ -309,12 +307,7 @@ export function LandingPage({ templates }: LandingPageProps) {
                             overflow: 'hidden',
                             borderRadius: tokens.radiusPx.sm,
                             bgcolor: colors.background.paper,
-                            transition: 'transform 0.3s ease',
                             transform: i % 2 === 1 ? 'translateY(10px)' : 'none',
-                            '&:hover': {
-                              transform: i % 2 === 1 ? 'translateY(6px) scale(1.02)' : 'scale(1.02)',
-                              zIndex: 1,
-                            },
                           }}
                         >
                           <CardActionArea
@@ -397,9 +390,7 @@ export function LandingPage({ templates }: LandingPageProps) {
                 sx={{
                   height: '100%',
                   bgcolor: colors.background.paper,
-                  transition: 'transform 0.2s ease, background 0.2s ease',
                   '&:hover': {
-                    transform: 'translateY(-4px)',
                     background: colors.gradient.surfaceGlow,
                   },
                 }}
@@ -458,8 +449,6 @@ export function LandingPage({ templates }: LandingPageProps) {
                     height: '100%',
                     cursor: 'default',
                     bgcolor: colors.background.paper,
-                    transition: 'transform 0.2s ease',
-                    '&:hover': { transform: 'translateY(-4px)' },
                   }}
                 >
                   <Box sx={{ p: 3 }}>

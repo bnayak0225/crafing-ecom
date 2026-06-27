@@ -7,10 +7,17 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useCallback, useMemo, useState } from 'react';
 import { BrandLogo } from '@/components/BrandLogo';
 import { TOOL_OPTIONS } from '@/components/tools/toolsConfig';
+import { PRINT_CATEGORIES, printCategoryHref } from '@/config/print-categories';
+import {
+  STUDIO_DESIGN_PRODUCTS,
+  isStudioSectionActive,
+  studioProductHref,
+  studioSectionHref,
+} from '@/config/studio-nav';
 import { colors } from '@/theme/colors';
 import { tokens } from '@/theme/tokens';
 
@@ -20,6 +27,12 @@ const navLinkSx = {
   transition: 'color 0.2s',
   '&:hover': { color: colors.primary.main, bgcolor: 'transparent' },
 } as const;
+
+type NavMenuItem = {
+  href: string;
+  label: string;
+  active?: boolean;
+};
 
 function NavTextLink({
   href,
@@ -46,11 +59,145 @@ function NavTextLink({
   );
 }
 
+function NavHoverDropdown({
+  label,
+  href,
+  active,
+  items,
+  minWidth = 220,
+}: {
+  label: string;
+  href: string;
+  active?: boolean;
+  items: NavMenuItem[];
+  minWidth?: number;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Box
+      sx={{ position: 'relative' }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <Button
+        component={Link}
+        href={href}
+        color="inherit"
+        endIcon={
+          <KeyboardArrowDownIcon
+            sx={{
+              fontSize: 18,
+              transition: 'transform 0.2s',
+              transform: open ? 'rotate(180deg)' : 'none',
+            }}
+          />
+        }
+        sx={{
+          ...navLinkSx,
+          color: active ? colors.primary.main : colors.text.secondary,
+          fontWeight: active ? 600 : 500,
+        }}
+      >
+        {label}
+      </Button>
+
+      {open ? (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            pt: 0.75,
+            minWidth,
+            zIndex: 1200,
+          }}
+        >
+          <Stack
+            sx={{
+              py: 0.5,
+              maxHeight: 360,
+              overflowY: 'auto',
+              bgcolor: colors.background.paper,
+              border: 1,
+              borderColor: colors.border.subtle,
+              borderRadius: tokens.radiusPx.md,
+              boxShadow: colors.shadow.elevated,
+            }}
+          >
+            {items.map((item) => (
+              <Typography
+                key={`${item.href}-${item.label}`}
+                component={Link}
+                href={item.href}
+                variant="body2"
+                sx={{
+                  px: 2,
+                  py: 1.25,
+                  whiteSpace: 'nowrap',
+                  color: item.active ? colors.primary.main : colors.text.primary,
+                  fontWeight: item.active ? 600 : 500,
+                  textDecoration: 'none',
+                  '&:hover': {
+                    color: colors.primary.main,
+                    bgcolor: colors.accent.highlight,
+                  },
+                }}
+              >
+                {item.label}
+              </Typography>
+            ))}
+          </Stack>
+        </Box>
+      ) : null}
+    </Box>
+  );
+}
+
 export function SiteNavbar() {
   const pathname = usePathname() ?? '';
+  const searchParams = useSearchParams();
+  const sectionParam = searchParams?.get('section') ?? '';
+  const productType = searchParams?.get('type') ?? '';
+  const groupParam = searchParams?.get('group') ?? '';
   const isHome = pathname === '/';
   const isToolsSection = pathname.startsWith('/tools');
   const [toolsOpen, setToolsOpen] = useState(false);
+
+  const designMenuItems = useMemo<NavMenuItem[]>(
+    () => [
+      {
+        href: studioSectionHref('design'),
+        label: 'All design formats',
+        active: isStudioSectionActive(pathname, sectionParam, productType, 'design') && !productType,
+      },
+      ...STUDIO_DESIGN_PRODUCTS.map((product) => ({
+        href: studioProductHref(product),
+        label: product.label,
+        active: productType === product.id,
+      })),
+    ],
+    [pathname, productType, sectionParam],
+  );
+
+  const printMenuItems = useMemo<NavMenuItem[]>(
+    () => [
+      {
+        href: studioSectionHref('print'),
+        label: 'All print products',
+        active:
+          isStudioSectionActive(pathname, sectionParam, productType, 'print') &&
+          !groupParam &&
+          !productType,
+      },
+      ...PRINT_CATEGORIES.map((category) => ({
+        href: printCategoryHref(category.id),
+        label: category.title,
+        active: groupParam === category.id,
+      })),
+    ],
+    [groupParam, pathname, productType, sectionParam],
+  );
 
   const scrollTo = useCallback((id: string) => {
     if (isHome) {
@@ -67,6 +214,9 @@ export function SiteNavbar() {
         position: 'sticky',
         top: 0,
         zIndex: 1100,
+        flexShrink: 0,
+        height: tokens.siteNavbarHeight,
+        boxSizing: 'border-box',
         borderBottom: 1,
         borderColor: colors.border.subtle,
         bgcolor: colors.alpha.white92,
@@ -74,10 +224,10 @@ export function SiteNavbar() {
         boxShadow: colors.shadow.header,
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ height: '100%' }}>
         <Stack
           direction="row"
-          sx={{ py: 2, alignItems: 'center', justifyContent: 'space-between', gap: 2 }}
+          sx={{ height: '100%', alignItems: 'center', justifyContent: 'space-between', gap: 2 }}
         >
           <BrandLogo href="/" size="sm" />
 
@@ -86,6 +236,21 @@ export function SiteNavbar() {
             spacing={3}
             sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}
           >
+            <NavHoverDropdown
+              label="Design"
+              href={studioSectionHref('design')}
+              active={isStudioSectionActive(pathname, sectionParam, productType, 'design')}
+              items={designMenuItems}
+              minWidth={240}
+            />
+            <NavHoverDropdown
+              label="Print"
+              href={studioSectionHref('print')}
+              active={isStudioSectionActive(pathname, sectionParam, productType, 'print')}
+              items={printMenuItems}
+              minWidth={200}
+            />
+
             <Button onClick={() => scrollTo('features')} color="inherit" sx={navLinkSx}>
               Features
             </Button>
@@ -126,6 +291,7 @@ export function SiteNavbar() {
                     left: 0,
                     pt: 0.75,
                     minWidth: 220,
+                    zIndex: 1200,
                   }}
                 >
                   <Stack
@@ -135,6 +301,7 @@ export function SiteNavbar() {
                       border: 1,
                       borderColor: colors.border.subtle,
                       borderRadius: tokens.radiusPx.md,
+                      boxShadow: colors.shadow.elevated,
                     }}
                   >
                     {TOOL_OPTIONS.map((tool) => (

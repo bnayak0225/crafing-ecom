@@ -28,11 +28,11 @@ body {
 }
 
 .landing-orb {
-  animation: landing-float 9s ease-in-out infinite;
+  animation: none;
 }
 
 .landing-orb--delayed {
-  animation: landing-float-delayed 11s ease-in-out infinite;
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

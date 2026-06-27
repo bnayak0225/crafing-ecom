@@ -6,14 +6,12 @@ import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { BrandLogo } from '@/components/BrandLogo';
 import {
   isStudioSectionActive,
   studioSectionHref,
@@ -37,66 +35,59 @@ const mainNav: {
 
 export function Sidebar() {
   const pathname = usePathname() ?? '';
-  const productType = useSearchParams().get('type') ?? '';
-  const sectionParam = useSearchParams().get('section') ?? '';
+  const searchParams = useSearchParams();
+  const productType = searchParams?.get('type') ?? '';
+  const sectionParam = searchParams?.get('section') ?? '';
 
   return (
-    <Drawer
-      variant="permanent"
+    <Box
+      component="aside"
       sx={{
-        display: { xs: 'none', md: 'block' },
-        '& .MuiDrawer-paper': {
-          width: tokens.sidebarWidth,
-          borderRight: 1,
-          borderColor: colors.border.subtle,
-        },
+        display: { xs: 'none', md: 'flex' },
+        flexDirection: 'column',
+        flexShrink: 0,
+        width: tokens.sidebarWidth,
+        height: '100%',
+        minHeight: 0,
+        overflow: 'auto',
+        borderRight: 1,
+        borderColor: colors.border.subtle,
+        bgcolor: colors.background.elevated,
+        py: 2.5,
+        px: 2,
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-          py: 2.5,
-          px: 2,
-        }}
+      <List dense disablePadding sx={{ flex: 1 }}>
+        {mainNav.map(({ id, label, href, icon: Icon }) => (
+          <ListItemButton
+            key={id}
+            component={Link}
+            href={href}
+            selected={isStudioSectionActive(pathname, sectionParam, productType, id)}
+            sx={{ py: 1, mb: 0.25, borderRadius: 1 }}
+          >
+            <ListItemIcon sx={{ minWidth: 38 }}>
+              <Icon sx={{ fontSize: 20 }} />
+            </ListItemIcon>
+            <ListItemText
+              primary={label}
+              slotProps={{ primary: { variant: 'body2', sx: { fontWeight: 600 } } }}
+            />
+          </ListItemButton>
+        ))}
+      </List>
+
+      <Button
+        component="a"
+        href={getEditorUrl()}
+        variant="contained"
+        color="primary"
+        fullWidth
+        size="large"
+        sx={{ mt: 2, flexShrink: 0 }}
       >
-        <Box sx={{ px: 0.5, mb: 3, flexShrink: 0 }}>
-          <BrandLogo href="/studio" />
-        </Box>
-
-        <List dense disablePadding sx={{ flex: 1 }}>
-          {mainNav.map(({ id, label, href, icon: Icon }) => (
-            <ListItemButton
-              key={id}
-              component={Link}
-              href={href}
-              selected={isStudioSectionActive(pathname, sectionParam, productType, id)}
-              sx={{ py: 1, mb: 0.25, borderRadius: 1 }}
-            >
-              <ListItemIcon sx={{ minWidth: 38 }}>
-                <Icon sx={{ fontSize: 20 }} />
-              </ListItemIcon>
-              <ListItemText
-                primary={label}
-                slotProps={{ primary: { variant: 'body2', fontWeight: 600 } }}
-              />
-            </ListItemButton>
-          ))}
-        </List>
-
-        <Button
-          component="a"
-          href={getEditorUrl()}
-          variant="contained"
-          color="primary"
-          fullWidth
-          size="large"
-          sx={{ mt: 2, flexShrink: 0 }}
-        >
-          New design
-        </Button>
-      </Box>
-    </Drawer>
+        New design
+      </Button>
+    </Box>
   );
 }

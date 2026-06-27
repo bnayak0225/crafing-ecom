@@ -2,27 +2,28 @@ import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 import CampaignOutlinedIcon from '@mui/icons-material/CampaignOutlined';
 import CardGiftcardOutlinedIcon from '@mui/icons-material/CardGiftcardOutlined';
+import ManOutlinedIcon from '@mui/icons-material/ManOutlined';
+import WomanOutlinedIcon from '@mui/icons-material/WomanOutlined';
 import CollectionsOutlinedIcon from '@mui/icons-material/CollectionsOutlined';
 import ContactMailOutlinedIcon from '@mui/icons-material/ContactMailOutlined';
 import CropFreeOutlinedIcon from '@mui/icons-material/CropFreeOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
+import FilterFramesOutlinedIcon from '@mui/icons-material/FilterFramesOutlined';
+import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import InsightsOutlinedIcon from '@mui/icons-material/InsightsOutlined';
 import LocalCafeOutlinedIcon from '@mui/icons-material/LocalCafeOutlined';
-import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import MovieOutlinedIcon from '@mui/icons-material/MovieOutlined';
 import OndemandVideoOutlinedIcon from '@mui/icons-material/OndemandVideoOutlined';
 import PanoramaOutlinedIcon from '@mui/icons-material/PanoramaOutlined';
 import PhotoAlbumOutlinedIcon from '@mui/icons-material/PhotoAlbumOutlined';
-import PhotoSizeSelectLargeOutlinedIcon from '@mui/icons-material/PhotoSizeSelectLargeOutlined';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import SlideshowOutlinedIcon from '@mui/icons-material/SlideshowOutlined';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
-import StyleOutlinedIcon from '@mui/icons-material/StyleOutlined';
 import TagOutlinedIcon from '@mui/icons-material/TagOutlined';
 import VideoLibraryOutlinedIcon from '@mui/icons-material/VideoLibraryOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
@@ -46,7 +47,7 @@ export type StudioProductGroupId =
   | 'documents'
   | 'video';
 
-export type StudioPrintGroupId = 'photo' | 'apparel' | 'paper';
+export type StudioPrintGroupId = 'mug' | 'tshirt' | 'photobook' | 'photo-print' | 'frame';
 
 export type StudioFilterTagId = StudioProductGroupId | StudioPrintGroupId | 'all';
 
@@ -67,6 +68,8 @@ export type StudioProduct = {
   search?: string;
   formatId?: string;
   description?: string;
+  /** When false, hidden from print pickers and category lists (code/routes may remain). */
+  listed?: boolean;
 };
 
 export type StudioProductGroup = {
@@ -135,9 +138,11 @@ export const STUDIO_DESIGN_FILTER_TAGS: StudioFilterTag[] = [
 /** Ordered tag chips shown above the print product grid. */
 export const STUDIO_PRINT_FILTER_TAGS: StudioFilterTag[] = [
   { id: 'all', label: 'All' },
-  { id: 'photo', label: 'Photo gifts' },
-  { id: 'apparel', label: 'Apparel & drinkware' },
-  { id: 'paper', label: 'Paper & cards' },
+  { id: 'mug', label: 'Mugs' },
+  { id: 'tshirt', label: 'T-Shirts' },
+  { id: 'photobook', label: 'Photo books' },
+  { id: 'photo-print', label: 'Photo prints' },
+  { id: 'frame', label: 'Frames' },
 ];
 
 export const STUDIO_DESIGN_PRODUCTS: StudioProduct[] = [
@@ -541,89 +546,118 @@ export const STUDIO_DESIGN_PRODUCTS: StudioProduct[] = [
   },
 ];
 export const STUDIO_PRINT_PRODUCTS: StudioProduct[] = [
-  {
-    id: 'photobook',
-    section: 'print',
-    label: 'Photobook',
-    icon: MenuBookOutlinedIcon,
-    printGroupId: 'photo',
-    category: 'print',
-    search: 'photobook',
-  },
+  // Mugs
   {
     id: 'coffee-mug',
     section: 'print',
     label: 'Coffee mug',
     icon: LocalCafeOutlinedIcon,
-    printGroupId: 'apparel',
+    printGroupId: 'mug',
     category: 'print',
-    search: 'mug',
+    search: 'mug coffee',
+    description: '11 oz ceramic mug with wrap print.',
   },
   {
-    id: 'tshirt',
+    id: 'travel-mug',
     section: 'print',
-    label: 'T-shirt',
-    icon: StyleOutlinedIcon,
-    printGroupId: 'apparel',
+    label: 'Travel mug',
+    icon: LocalCafeOutlinedIcon,
+    printGroupId: 'mug',
     category: 'print',
-    search: 'tshirt',
+    search: 'travel mug tumbler',
+    description: 'Insulated tumbler with photo wrap.',
+    listed: false,
+  },
+  // T-Shirts
+  {
+    id: 't-shirt-men',
+    section: 'print',
+    label: "Men's T-shirt",
+    icon: ManOutlinedIcon,
+    printGroupId: 'tshirt',
+    category: 'print',
+    search: 'tshirt men mens tee shirt apparel',
+    description: 'Crew neck tee with front print — men’s fit.',
   },
   {
-    id: 'photo-magnet',
+    id: 't-shirt-women',
     section: 'print',
-    label: 'Photo magnet',
-    icon: PhotoSizeSelectLargeOutlinedIcon,
-    printGroupId: 'photo',
+    label: "Women's T-shirt",
+    icon: WomanOutlinedIcon,
+    printGroupId: 'tshirt',
     category: 'print',
-    search: 'magnet',
+    search: 'tshirt women womens ladies tee shirt apparel',
+    description: 'Crew neck tee with front print — women’s fit.',
+  },
+  // Photo books
+  {
+    id: 'photobook',
+    section: 'print',
+    label: 'Photobook',
+    icon: MenuBookOutlinedIcon,
+    printGroupId: 'photobook',
+    category: 'print',
+    search: 'photobook album',
+    description: 'Hardcover photo book with custom cover.',
+  },
+  // Photo prints
+  {
+    id: 'standard-photo-print',
+    section: 'print',
+    label: 'Gloss photo print',
+    icon: PhotoAlbumOutlinedIcon,
+    printGroupId: 'photo-print',
+    category: 'print',
+    search: 'photo print glossy 4x6 5x7',
+    description: 'Single lustre photo print — 4×6 or 5×7 in.',
   },
   {
-    id: 'a4-flyer',
+    id: 'polaroid-print',
     section: 'print',
-    label: 'A4 flyer',
-    icon: DescriptionOutlinedIcon,
-    printGroupId: 'paper',
+    label: 'Polaroid print',
+    icon: CollectionsOutlinedIcon,
+    printGroupId: 'photo-print',
     category: 'print',
-    formatId: 'a4-flyer',
-    tag: 'flyer',
+    search: 'polaroid instant border retro',
+    description: 'Square print with classic white polaroid border.',
   },
+  // Frames
   {
-    id: 'poster',
+    id: 'picture-frame',
     section: 'print',
-    label: 'Poster',
-    icon: PanoramaOutlinedIcon,
-    printGroupId: 'paper',
+    label: 'Picture frame',
+    icon: FilterFramesOutlinedIcon,
+    printGroupId: 'frame',
     category: 'print',
-    search: 'poster',
-  },
-  {
-    id: 'business-card',
-    section: 'print',
-    label: 'Business card',
-    icon: ContactMailOutlinedIcon,
-    printGroupId: 'paper',
-    category: 'print',
-    search: 'business card',
-  },
-  {
-    id: 'greeting-card',
-    section: 'print',
-    label: 'Greeting card',
-    icon: CardGiftcardOutlinedIcon,
-    printGroupId: 'paper',
-    category: 'print',
-    search: 'greeting',
+    search: 'frame wall',
+    description: 'Framed wall print with mat.',
   },
   {
     id: 'canvas-print',
     section: 'print',
     label: 'Canvas print',
     icon: PhotoAlbumOutlinedIcon,
-    printGroupId: 'photo',
+    printGroupId: 'frame',
     category: 'print',
-    search: 'canvas',
+    search: 'canvas frame',
+    description: 'Gallery-wrapped canvas.',
+  },
+  {
+    id: 'poster-frame',
+    section: 'print',
+    label: 'Poster frame',
+    icon: PanoramaOutlinedIcon,
+    printGroupId: 'frame',
+    category: 'print',
+    search: 'poster frame',
+    description: '18×24 framed poster print.',
   },
 ];
+
+/** Print products shown in studio lists (excludes `listed: false`). */
+export function listStudioPrintProducts(): StudioProduct[] {
+  return STUDIO_PRINT_PRODUCTS.filter((product) => product.listed !== false);
+}
 
 export const ALL_STUDIO_PRODUCTS = [...STUDIO_DESIGN_PRODUCTS, ...STUDIO_PRINT_PRODUCTS];
 
@@ -704,6 +738,8 @@ export function resolveStudioPanel(
   }
 
   if (pathname.startsWith('/studio/projects')) return 'my-work';
+
+  if (pathname.startsWith('/studio/print')) return 'print';
 
   if (sectionParam === 'print') return 'print';
   if (sectionParam === 'design') return 'design';

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Box from '@mui/material/Box';
+import { Suspense } from 'react';
 import { SiteNavbar } from '@/components/SiteNavbar';
 import { ThemeRegistry } from '@/components/ThemeRegistry';
 import { dmSans } from '@/theme/fonts';
@@ -16,8 +17,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={dmSans.className}>
         <ThemeRegistry>
           <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-            <SiteNavbar />
-            <Box component="main" sx={{ flexGrow: 1, minWidth: 0 }}>
+            <Suspense fallback={null}>
+              <SiteNavbar />
+            </Suspense>
+            <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0, minHeight: 0 }}>
               {children}
             </Box>
           </Box>

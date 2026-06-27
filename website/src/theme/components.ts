@@ -69,7 +69,6 @@ export const components: Components<Theme> = {
         backgroundColor: 'transparent',
         backgroundImage: 'none',
         boxShadow: 'none',
-        transition: 'transform 0.25s ease',
       },
     },
   },

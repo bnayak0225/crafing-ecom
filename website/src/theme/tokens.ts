@@ -3,6 +3,9 @@ import { colors } from './colors';
 /** Layout & non-color design tokens. Colors: import `colors` from `@/theme/colors`. */
 export const tokens = {
   sidebarWidth: 260,
+  /** Site navbar height — used for `calc(100vh - …)` layout below the header. */
+  siteNavbarHeight: 72,
+  /** @deprecated Use `siteNavbarHeight` */
   headerHeight: 72,
   /** Theme shape multiplier base — do not pass these numbers directly in `sx` borderRadius */
   radius: {

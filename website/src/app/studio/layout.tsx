@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import { Suspense } from 'react';
 import { ActiveSidebar } from '@/components/client/ActiveSidebar';
-import { Topbar } from '@/components/Topbar';
+import { StudioMainHeader } from '@/components/studio/StudioMainHeader';
 import { apiServer } from '@/lib/api-server';
 import { tokens } from '@/theme/tokens';
 
@@ -18,21 +18,31 @@ export default async function StudioLayout({
   }
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100%' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        height: `calc(100vh - ${tokens.siteNavbarHeight}px)`,
+        overflow: 'hidden',
+        minWidth: 0,
+        bgcolor: 'background.default',
+      }}
+    >
       <Suspense fallback={null}>
         <ActiveSidebar />
       </Suspense>
+
       <Box
         sx={{
-          flexGrow: 1,
-          ml: { xs: 0, md: `${tokens.sidebarWidth}px` },
-          minWidth: 0,
           display: 'flex',
           flexDirection: 'column',
+          flex: 1,
+          minWidth: 0,
+          minHeight: 0,
+          overflow: 'hidden',
         }}
       >
-        <Topbar user={user} />
-        <Box sx={{ flexGrow: 1 }}>{children}</Box>
+        <StudioMainHeader user={user} />
+        <Box sx={{ flex: 1, minHeight: 0, overflow: 'auto' }}>{children}</Box>
       </Box>
     </Box>
   );

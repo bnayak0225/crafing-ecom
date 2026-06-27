@@ -19,7 +19,7 @@ export function SearchForm() {
   };
 
   return (
-    <Box component="form" onSubmit={handleSearch} sx={{ flex: 1, maxWidth: 480 }}>
+    <Box component="form" onSubmit={handleSearch} sx={{ width: '100%' }}>
       <TextField
         fullWidth
         placeholder="Search templates, categories..."
